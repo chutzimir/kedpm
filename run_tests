@@ -9,7 +9,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# $Id: run_tests,v 1.1 2003/08/05 18:32:15 kedder Exp $
+# $Id: run_tests,v 1.1.1.1 2003/08/05 18:32:15 kedder Exp $
 
 from test import go
 import sys

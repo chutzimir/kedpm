@@ -15,7 +15,7 @@
 # BASIS, AND THERE IS NO OBLIGATION WHATSOEVER TO PROVIDE MAINTENANCE,
 # SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 # 
-# $Id: __init__.py,v 1.1 2003/08/05 18:32:18 kedder Exp $
+# $Id: __init__.py,v 1.1.1.1 2003/08/05 18:32:18 kedder Exp $
 
 import os, unittest
 
