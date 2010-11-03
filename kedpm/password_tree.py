@@ -131,7 +131,7 @@ class PasswordTree:
     def addBranch(self, name):
         """Add new branch to the tree."""
         if self._branches.has_key(name):
-            raise AttributeError, "Branch already exists"
+            raise AttributeError("Branch already exists")
         branch = PasswordTree()
         self._branches[name] = branch
         return branch
@@ -207,7 +207,7 @@ It returns a { path, password } dictionnary.'''
         except KeyError:
             pass
         else:
-            raise RenameError, "Category \"%s\" already exists." % newname
+            raise RenameError("Category \"%s\" already exists." % newname)
         branches = parent_tree.getBranches()
         cat = branches[oldname]
         del branches[oldname]

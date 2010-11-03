@@ -45,7 +45,7 @@ class Application(object, Frontend):
         try:
             res = dlg.run()
             if res != gtk.RESPONSE_OK:
-                print "Good bye."
+                print ("Good bye.")
                 sys.exit(1)
         except DatabaseNotExist:
             dlg.destroyDialog()

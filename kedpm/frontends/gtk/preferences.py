@@ -138,7 +138,7 @@ class PreferencesDialog(Dialog):
         if isinstance(option, FileOption):
             return FilePreference(option, widget)
         else:
-            raise TypeError, "Unrecognized option"
+            raise TypeError("Unrecognized option")
 
     def saveConfig(self):
         globals.app.conf.save()

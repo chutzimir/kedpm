@@ -62,13 +62,13 @@ class SelectOption (Option):
     def __init__(self, constraint, default = None, doc = ""):
         """constraint is a non-empty list of possible option values"""
         if type(constraint) != type([]) or not constraint:
-            raise ValueError, "constraint must be a non-empty list"
+            raise ValueError("constraint must be a non-empty list")
         self.__constraint = constraint
         Option.__init__(self, default, doc)
     
     def set(self, value):
         if value not in self.__constraint:
-            raise OptionError, "Value must be one of %s" % self.__constraint
+            raise OptionError("Value must be one of %s" % self.__constraint)
         self._value = value
 
     def getConstraint(self):
@@ -120,7 +120,7 @@ class BooleanOption (Option):
         if not self.__boolmap.has_key(value):
             ok_values = self.__boolmap.keys()
             ok_values.extend((0,1))
-            raise OptionError, "Value [%s] is not acceptable. Must be one of %s" % (str(value), ok_values)
+            raise OptionError("Value [%s] is not acceptable. Must be one of %s" % (str(value), ok_values))
         self._value = self.__boolmap[value]
 
 
@@ -223,8 +223,8 @@ Changes will take effect after kedpm restart."""),
 
         dirname, fname = os.path.split(self.filename)
         if not os.access(dirname, os.F_OK):
-            print "Creating directory %s" % dirname
-            os.mkdir(dirname, 0700)
+            print("Creating directory %s" % dirname)
+            os.mkdir(dirname, 0o700)
         self.save()
 
     def buildDOM(self):

@@ -57,7 +57,7 @@ class FigaroPassword (Password):
 
     def __setitem__(self, key, value):
         if key=='password' and len(value) > FPM_PASSWORD_LEN and not self.store_long_password:
-            raise FigaroPasswordTooLongError, "Password is too long"
+            raise FigaroPasswordTooLongError("Password is too long")
         Password.__setitem__(self, key, value)
 
 
@@ -88,7 +88,7 @@ class PDBFigaro (PasswordDatabase):
 
         # Check existance of database file
         if not os.access(self.filename, os.F_OK):
-            raise DatabaseNotExist, 'File %s is not found' % self.filename
+            raise DatabaseNotExist('File %s is not found' % self.filename)
 
         fpm = minidom.parse(self.filename)
 
@@ -123,7 +123,7 @@ class PDBFigaro (PasswordDatabase):
         self._salt = keyinfo.getAttribute('salt')
         vstring = keyinfo.getAttribute('vstring')
         if self.decrypt(vstring) != "FIGARO":
-            raise WrongPassword, "Wrong password"
+            raise WrongPassword("Wrong password")
 
         # Save LauncherList xml element. Although kedpm don't use launchers
         # yet, this list will be inserted into saved database to preserve
@@ -159,7 +159,7 @@ class PDBFigaro (PasswordDatabase):
         f = open(filename, 'w')
         f.write(doc.toxml())
         f.close()
-        os.chmod(filename, 0600)
+        os.chmod(filename, 0o600)
 
     def generateSalt(self):
         """Generate salt, that consists of 8 small latin characters"""
@@ -231,8 +231,8 @@ class PDBFigaro (PasswordDatabase):
         filename = fname or self.default_db_filename
         dirname, fname = os.path.split(filename)
         if not os.access(dirname, os.F_OK):
-            print "Creating directory %s" % dirname
-            os.mkdir(dirname, 0700)
+            print ("Creating directory %s" % dirname)
+            os.mkdir(dirname, 0o700)
         newdb = PDBFigaro()
         newdb._password = password
         newdb.save(filename)

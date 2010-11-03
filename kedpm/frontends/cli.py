@@ -54,7 +54,7 @@ try 'help' for brief description of available commands.
 
     def printMessage(self, message, *vars):
         if self.verbose:
-            print (message) % vars
+            print ((message) % vars)
 
     def openDatabase(self):
         ''' Open database amd prompt for password if necessary '''
@@ -73,9 +73,9 @@ try 'help' for brief description of available commands.
                 break
             except WrongPassword:
                 if password:
-                    print _("Error! Wrong password.")
+                    print (_("Error! Wrong password."))
                 else:
-                    print _("Provide password to access the database (Ctrl-C to exit)")
+                    print (_("Provide password to access the database (Ctrl-C to exit)"))
                 password = getpass(_("Password: "))
             except DatabaseNotExist:
                 password = self.createNewDatabase()
@@ -84,16 +84,16 @@ try 'help' for brief description of available commands.
 
     def createNewDatabase(self):
         'Create new password database and return password for created database'
-        print _("Creating new password database.")
+        print (_("Creating new password database."))
         pass1 = pass2 = ""
         while pass1 != pass2 or pass1 == "":
             pass1 = getpass(_("Provide password: "))
             pass2 = getpass(_("Repeat password: "))
             if pass1 == '':
-                print _("Empty passwords are really insecure. You should " \
-                        "create one.")
+                print (_("Empty passwords are really insecure. You should " \
+                        "create one."))
             if pass1!=pass2:
-                print _("Passwords don't match! Please repeat.")
+                print (_("Passwords don't match! Please repeat."))
 
         self.pdb.create(pass1)
         return pass1
@@ -140,10 +140,10 @@ try 'help' for brief description of available commands.
         if show_numbers:
             listable = ['nr'] + listable
         fstr = fstr % tuple([lengths[x]+1 for x in listable])
-        print fstr % tuple(headers)
-        print fstr % tuple(["="*lengths[x]for x in listable])
+        print (fstr % tuple(headers))
+        print (fstr % tuple(["="*lengths[x]for x in listable]))
         for ptup in ptuples:
-            print fstr % ptup
+            print (fstr % ptup)
 
     def filterPasswords(self, regexp, tree = None):
         '''Returns a list of passwords, filtered by REGEXP'''
@@ -180,7 +180,7 @@ try 'help' for brief description of available commands.
          
         if len(passwords) > 1:
             self.listPasswords(passwords, 1)
-            print _("Enter number. Enter 0 to cancel.")
+            print (_("Enter number. Enter 0 to cancel."))
             try:
                 showstr = raw_input(_('show: '))
             except (KeyboardInterrupt, EOFError):
@@ -217,7 +217,7 @@ try 'help' for brief description of available commands.
             if pass1==pass2:
                 pwd = pass1
             else:
-                print _("Passwords don't match. Try again.")
+                print (_("Passwords don't match. Try again."))
         return pwd
 
     def editPassword(self, pwd):
@@ -236,8 +236,8 @@ try 'help' for brief description of available commands.
             elif field_type == password.TYPE_PASSWORD:
                 new_value = self.inputPassword(_("Enter %s: ") % pwd.getFieldTitle(field))
             else:
-                print _("Error. Type %s is unsupported yet. " \
-                        "This field will retain an old value.") % field_type
+                print (_("Error. Type %s is unsupported yet. " \
+                        "This field will retain an old value.") % field_type)
 
             if new_value!="":
                 input[field] = new_value
@@ -245,11 +245,11 @@ try 'help' for brief description of available commands.
         try:
             pwd.update(input)
         except FigaroPasswordTooLongError:
-            print _("WARNING! Your password is too long for Figaro Password Manager.")
-            print _("Figaro Password Manager can handle only passwords shorter than 24 characters.")
-            print _("""However, KedPM can store this password for you, but it
+            print (_("WARNING! Your password is too long for Figaro Password Manager."))
+            print (_("Figaro Password Manager can handle only passwords shorter than 24 characters."))
+            print (_("""However, KedPM can store this password for you, but it
 will break fpm compatibility. fpm will not be able to handle such
-long password correctly.""")
+long password correctly."""))
             answer = raw_input(_("Do you still want to save your password? [Y/n]: "))
             if answer.lower().startswith('n'):
                 raise KeyboardInterrupt
@@ -370,13 +370,13 @@ Syntax:
         try:
             tree = self.getTreeFromRelativePath(arg)
         except KeyError:
-            print _("ls: %s:  No such catalog") % arg
+            print (_("ls: %s:  No such catalog") % arg)
             return
         
-        print _("=== Directories ===")
+        print (_("=== Directories ==="))
         for bname in tree.getBranches().keys():
-            print bname+"/"
-        print _("==== Passwords ====")
+            print (bname+"/")
+        print (_("==== Passwords ===="))
         self.listPasswords(tree.getNodes())
 
     def complete_ls(self, text, line, begidx, endidx):
@@ -393,7 +393,7 @@ Syntax:
         try:
             newpath = root.getTreeFromPath(cdpath)
         except KeyError:
-            print _("cd: %s: No such catalog") % arg
+            print (_("cd: %s: No such catalog") % arg)
         else:
             self.cwd = cdpath
             self.updatePrompt()
@@ -403,7 +403,7 @@ Syntax:
 
     def do_pwd(self, arg):
         '''print name of current/working directory'''
-        print '/'+'/'.join(self.cwd)
+        print ('/'+'/'.join(self.cwd))
 
     def do_show(self, arg):
         '''display password information.
@@ -429,9 +429,9 @@ the password. Otherwise all matching entries will be displayed'''
         selected_passwords = self.getPasswords(arg, tree)
         for record in selected_passwords:
             if record:
-                print "---------------------------------------"
-                print record.asText()
-                print "---------------------------------------"
+                print ("---------------------------------------")
+                print (record.asText())
+                print ("---------------------------------------")
 
     def do_edit(self, arg):
         '''edit password information.
@@ -490,8 +490,8 @@ Syntax:
         argv = arg.split()
 
         if   "-p" in argv and "-t" in argv:
-            print _("new: -p and -t arguments are mutually exclusive.")          
-            print _("try 'help new' for more information")
+            print (_("new: -p and -t arguments are mutually exclusive."))
+            print (_("try 'help new' for more information"))
         elif "-p" in argv:
             text = self.getEditorInput()
             choosendict = parser.parseMessage(text, self.conf.patterns)
@@ -535,7 +535,7 @@ Syntax:
         sys.stdout.write(_("Saving..."))
         sys.stdout.flush()
         self.pdb.save()
-        print "OK"
+        print ("OK")
         self.modified = 0
 
     def do_mkdir(self, arg):
@@ -547,8 +547,8 @@ Syntax:
 Creates new password category in current one.
 '''
         if not arg:
-            print _("mkdir: too few arguments")
-            print _("try 'help mkdir' for more information")
+            print (_("mkdir: too few arguments"))
+            print (_("try 'help mkdir' for more information"))
             return
 
         pwd = self.getCwd()
@@ -562,19 +562,19 @@ Syntax:
 '''
         args = arg.split()
         if len(args) != 2:
-            print '''Syntax:
+            print ('''Syntax:
     rename <category> <new_name>
-'''
+''')
             return
         oldname = args[0]
         newname = args[1]
         try:
             self.pdb.getTree().renameBranch(self.cwd+[oldname], newname)
         except RenameError:
-            print _("rename: category %s already exists") % newname
+            print (_("rename: category %s already exists") % newname)
             return
         except KeyError:
-            print _("rename: %s: no such category") % oldname
+            print (_("rename: %s: no such category") % oldname)
             return
         self.tryToSave()
 
@@ -596,11 +596,11 @@ one.
             pass1 = getpass(_("New password: "))
             pass2 = getpass(_("Repeat password: "))
             if pass1 == '':
-                print _("Empty passwords are really insecure. You should " \
-                        "create one.")
+                print (_("Empty passwords are really insecure. You should " \
+                        "create one."))
                 return
             if pass1!=pass2:
-                print _("Passwords don't match! Please repeat.")
+                print (_("Passwords don't match! Please repeat."))
                 return
             new_pass = pass1
         else:
@@ -642,25 +642,25 @@ Enter help set <option> for more info on a particular option.
         if not arg:
             # show all options
             for opt, value in opts.items():
-                print "%s = %s" % (opt, value)
+                print ("%s = %s" % (opt, value))
             return
         tokens = arg.split('=')
         opt_name = tokens[0].strip()
         try:
             opt_value = opts[opt_name]
         except KeyError:
-            print _("set: no such option: [%s]") % arg
+            print (_("set: no such option: [%s]") % arg)
             return
         if len(tokens) == 1:
             # show value of option
-            print "%s = %s" % (opt_name, opt_value)
+            print ("%s = %s" % (opt_name, opt_value))
         else:
             # set the value
             try:
                 opt_value = ' '.join(tokens[1:])
                 opts[opt_name] = opt_value.strip() 
-            except OptionError, e:
-                print "set: %s" % e
+            except OptionError as e:
+                print ("set: %s" % e)
         # save confuguration file
         self.conf.save()
 
@@ -673,17 +673,17 @@ Enter help set <option> for more info on a particular option.
 
     def help_set(self, arg):
         if not arg:
-            print self.do_set.__doc__
+            print (self.do_set.__doc__)
             for name, option in self.conf.options.iteritems():
-                print option.get_doc(name)
-                print ""
+                print (option.get_doc(name))
+                print ("")
 
             return
         try:
             option = self.conf.options.getOption(arg)
-            print option.get_doc(arg)
+            print (option.get_doc(arg))
         except KeyError:
-            print _("set: no such option: %s") % arg
+            print (_("set: no such option: %s") % arg)
 
     def do_rm(self, arg):
         """Remove password
@@ -698,7 +698,7 @@ list. Otherwise all matching records will be selected.  If the
 deletion.  Otherwise records will be deleted without confirmation."""
 
         if not arg:
-            print "rm: you must specify a password to remove"
+            print ("rm: you must specify a password to remove")
             return
 
         selected_password = self.pickPassword(arg)
@@ -709,7 +709,7 @@ deletion.  Otherwise records will be deleted without confirmation."""
         Cwd = self.getCwd()
         
         if self.confirm_deletes:
-            print selected_password.asText()
+            print (selected_password.asText())
             answer = raw_input("Do you really want to delete this " \
                                "password (y/N)? ")
             if answer.lower().startswith('y'):
@@ -733,9 +733,9 @@ is enabled, you will be prompted to pick one. Otherwise all matching records wil
 '''
         args = arg.split()
         if len(args) != 2:
-            print '''Syntax:
+            print ('''Syntax:
             mv <regexp> <category>
-'''
+''')
             return
 
         pw = args[0]
@@ -747,7 +747,7 @@ is enabled, you will be prompted to pick one. Otherwise all matching records wil
         try:
             dst_branch = root.getTreeFromPath(cat_path)
         except KeyError:
-            print _("mv: %s: No such catalog") % cat
+            print (_("mv: %s: No such catalog") % cat)
             return
 
         # select password from user
@@ -772,13 +772,13 @@ Syntax:
 Deletes a password category and ALL it\'s entries
 '''
         if not arg:
-            print _("rmdir: too few arguments")
-            print _("try 'help rmdir' for more information")
+            print (_("rmdir: too few arguments"))
+            print (_("try 'help rmdir' for more information"))
             return
 
         abspath = self.getAbsolutePath(arg)
         if not abspath:
-            print _("rmdir: Can't remove root directory")
+            print (_("rmdir: Can't remove root directory"))
             return
         pwd = self.pdb.getTree().getTreeFromPath(abspath[:-1])
         toremove = abspath[-1]
@@ -789,15 +789,15 @@ Deletes a password category and ALL it\'s entries
                 " and ALL it's entries? [y/N]: ") % abspath_str)
         if answer.lower().startswith('y'):
             pwd.removeBranch(toremove)
-            print _("rmdir: category \"%s\" and all it's entries were deleted.") % abspath_str
+            print (_("rmdir: category \"%s\" and all it's entries were deleted.") % abspath_str)
             self.tryToSave()
 
         # Check if current directory still exists. If not - cd to root.
         try:
             cwd = self.getCwd()
         except KeyError:
-            print _("rmdir: Warning! Current working directory was removed. " \
-                    "Changing to /")
+            print (_("rmdir: Warning! Current working directory was removed. " \
+                    "Changing to /"))
             self.cwd = []
             self.updatePrompt()
 
@@ -845,7 +845,7 @@ edit.'''
             self.do_exit("")
 
     def showMessage(self, message):
-        print message
+        print (message)
 
     # this needs more error checking:
     # * check if passwords match the regexp
@@ -909,4 +909,4 @@ TODO: Empty regexp leads to inconsistent results.
 '''
 
         for path, password in self.getCwd().rlocate(regexp).iteritems():
-            print path
+            print (path)

@@ -54,7 +54,7 @@ class Frontend:
             self.openDatabase()
         except (EOFError, KeyboardInterrupt):
             print
-            print "Good bye."
+            print ("Good bye.")
             sys.exit(1)
         if not self.pdb.native:
             # Do backup

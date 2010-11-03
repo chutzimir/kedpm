@@ -48,7 +48,7 @@ class Password:
         if self._fields.has_key(key):
             self._fields[key]['value'] = value
         else:
-            raise KeyError, "No such field in this password"
+            raise KeyError("No such field in this password")
 
     def update(self, info):
         for k in self._fields.keys():
@@ -58,14 +58,14 @@ class Password:
     def __getattr__(self, name):
         try:
             attr = self[name]
-        except KeyError, message:
-            raise AttributeError, message
+        except KeyError as message:
+            raise AttributeError(message)
         return attr
 
     def __setattr__(self, name, value):
         try:
             self[name] = value
-        except KeyError, message:
+        except KeyError as message:
             self.__dict__[name] = value
     
     def getField(self, name):
@@ -74,7 +74,7 @@ class Password:
             if key==name:
                 return fieldinfo      
         else: 
-            raise KeyError, 'No such field defined'
+            raise KeyError('No such field defined')
     
     def getFieldTitle(self, name):
         '''Returns title of field "name"'''

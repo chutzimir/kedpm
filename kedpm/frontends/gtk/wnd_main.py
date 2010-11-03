@@ -305,7 +305,7 @@ class MainWindow(Window):
         if self.modified:
             self.tryToSave()
         self.saveHistory()
-        print "Exiting."
+        print ("Exiting.")
         gtk.main_quit() #make the program quit
 
     def on_mi_quit_activate(self, widget):
@@ -349,7 +349,7 @@ class MainWindow(Window):
         self.setXSelection(copytext)
 
     def on_wnd_main_selection_clear_event(self, widget, event):
-        print "clearing %s selection" % event.selection
+        print ("clearing %s selection" % event.selection)
 
     def on_wnd_main_selection_get(self, widget, selection_data, info, time_stamp):
         selection_data.set_text(self.selected_text, len(self.selected_text))
@@ -416,7 +416,7 @@ class MainWindow(Window):
         if path[-2] != newname:
             try:
                 self.password_tree.renameBranch(cat_path.split('/'), newname)
-            except RenameError, message:
+            except RenameError as message:
                 errorMessageDialog(message[0])
                 return
             self.updateCategories()
