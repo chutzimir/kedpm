@@ -48,4 +48,4 @@ if data_files_dir is None:
 
 # Install gettext _() function
 import gettext
-gettext.install('kedpm', './po', unicode=0)
+gettext.install('kedpm', './po')
