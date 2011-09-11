@@ -167,7 +167,7 @@ Changes will take effect after kedpm restart."""),
         #self.options = Options()
         pass
     
-    def open(self):
+    def open(self, args):
         """Open and parse configuration xml file"""
         # Check if config file is readable
         if not os.access(self.filename, os.R_OK):
@@ -197,6 +197,14 @@ Changes will take effect after kedpm restart."""),
                 # Ignore unrecognized options
                 pass
                 
+        for extra_option, extra_value in zip(args[::2],args[1::2]):
+            print("Overriding configuration %s = %s..." % ( extra_option, extra_value )),
+            try:
+                self.options[extra_option] = extra_value
+                print("success.")
+            except KeyError:
+                print("unknown key.")
+                pass
         # Read patterns
         tag = doc.getElementsByTagName('patterns')[0]
         items = tag.getElementsByTagName('pattern')

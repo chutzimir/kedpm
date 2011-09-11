@@ -41,14 +41,14 @@ class Frontend:
         """ 
         raise NotImplementedError
     
-    def run(self):
+    def run(self, args):
         '''Run frontnend program
         
         Do common initialisation stuff common to all frontends,'''
 
         # Open configuration
         self.conf = Configuration()
-        self.conf.open()
+        self.conf.open(args)
         # Open database
         try:
             self.openDatabase()

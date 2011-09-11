@@ -61,7 +61,7 @@ def main(argv):
     cli: Command line interface;
     gtk: GTK2 graphical interface;''')
         sys.exit(1)
-    app.run()
+    app.run(args)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
